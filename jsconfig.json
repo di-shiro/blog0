@@ -1,0 +1,6 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".", // import の際にルートディレクトリからの絶対パスで指定するための設定
+    "paths": { "components/*": ["components/*"] }
+  }
+}
