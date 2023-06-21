@@ -1,0 +1,1 @@
+import { getPlaiceholder } from 'plaiceholder'
