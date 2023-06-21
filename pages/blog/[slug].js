@@ -17,8 +17,6 @@ import { prevNextPost } from 'lib/prev-next-post'
 import Pagination from 'components/pagination'
 // import { getPlaiceholder } from 'plaiceholder'
 
-// import { client } from 'lib/api'
-
 export default function Post({
   title,
   publish,
@@ -44,6 +42,7 @@ export default function Post({
 
         <figure>
           <Image
+            key={eyecatch.url}
             src={eyecatch.url}
             alt=""
             layout="responsive"
