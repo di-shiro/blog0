@@ -79,11 +79,11 @@ export default function Post({
 }
 
 export async function getStaticPaths() {
-  const allSlugs = await getAllSlugs()
+  const allSlugs = await getAllSlugs(5)
 
   return {
     paths: allSlugs.map(({ slug }) => `/blog/${slug}`),
-    fallback: false,
+    fallback: 'blocking',
   }
 }
 
@@ -92,38 +92,40 @@ export async function getStaticProps(context) {
 
   const post = await getPostBySlug(slug)
 
-  const description = extractText(post.content)
+  /**
+   * URLにしていした通りのSlugがMicroCMS側に存在するかどうかで処理を分岐する。
+   */
+  if (!post) {
+    // MicroCMS側に、Slugが存在しない場合の処理
+    return { notFound: true }
+  } else {
+    // MicroCMS側に、Slugが存在する場合の処理
 
-  const eyecatch = post.eyecatch ?? eyecatchLocal
+    const description = extractText(post.content)
 
-  // const { base64 } = await getPlaiceholder(eyecatch.url)
-  // eyecatch.blurDataURL = base64
+    const eyecatch = post.eyecatch ?? eyecatchLocal
 
-  const allSlugs = await getAllSlugs()
-  const [prevPost, nextPost] = prevNextPost(allSlugs, slug)
+    /**
+     * 以下はアイキャッチ画像のblur処理だが、
+     * 正常動作しなかったので、コメントアウトした。
+     */
+    // const { base64 } = await getPlaiceholder(eyecatch.url)
+    // eyecatch.blurDataURL = base64
 
-  // const resPromise = client.get({
-  //   endpoint: 'blogs',
-  // })
-  // resPromise.then((res) => console.log(res)).catch((err) => console.log(err))
+    const allSlugs = await getAllSlugs()
+    const [prevPost, nextPost] = prevNextPost(allSlugs, slug)
 
-  // try {
-  //   const res = await resPromise
-  //   console.log(res)
-  // } catch (err) {
-  //   console.log(err)
-  // }
-
-  return {
-    props: {
-      title: post.title,
-      publish: post.publishDate,
-      content: post.content,
-      eyecatch: eyecatch,
-      categories: post.categories,
-      description: description,
-      prevPost: prevPost,
-      nextPost: nextPost,
-    },
+    return {
+      props: {
+        title: post.title,
+        publish: post.publishDate,
+        content: post.content,
+        eyecatch: eyecatch,
+        categories: post.categories,
+        description: description,
+        prevPost: prevPost,
+        nextPost: nextPost,
+      },
+    }
   }
 }
