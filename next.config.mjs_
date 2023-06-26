@@ -8,6 +8,8 @@ const nextConfig = {
   // your Next.js config
   // reactStrictMode: true,
   images: {
+    loader: 'imgix',
+    path: '',
     domains: ['images.microcms-assets.io'],
     //     domains: ['example.com', 'example.org'],
   },

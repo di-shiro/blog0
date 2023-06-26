@@ -5,6 +5,7 @@ import Posts from 'components/posts'
 import Pagination from 'components/pagination'
 import { getAllPosts } from 'lib/api'
 import { eyecatchLocal } from 'lib/constants'
+// import { aboutImg } from 'lib/image-loader'
 
 export default function Home({ posts }) {
   return (
@@ -19,6 +20,15 @@ export default function Home({ posts }) {
 }
 
 export async function getStaticProps() {
+  // const url = aboutImg
+  // fetch(url)
+  //   .then((response) => response.json())
+  //   .then((data) => console.log(data))
+
+  // const response = await fetch(url)
+  // console.log(`response: ${response}`)
+  // console.log('TEST')
+
   const posts = await getAllPosts(4)
 
   for (const post of posts) {

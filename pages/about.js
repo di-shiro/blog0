@@ -1,3 +1,4 @@
+import BlueFrame from 'components/nested-layout'
 import Meta from 'components/meta'
 import Container from 'components/container'
 import Hero from 'components/hero'
@@ -9,8 +10,9 @@ import {
   TwoColumnSidebar,
 } from 'components/two-column'
 import Image from 'next/image'
-import eyecatch from 'images/about.jpg'
 import Accordion from 'components/accordion'
+import eyecatch from 'images/about.jpg'
+// import eyecatch from 'lib/image-loader'
 
 export default function About() {
   return (
@@ -32,7 +34,7 @@ export default function About() {
           layout="responsive"
           sizes="(min-width: 1152px) 1152px, 100vw"
           priority
-          placeholder="blur"
+          // placeholder="blur"
         />
       </figure>
 
@@ -80,3 +82,7 @@ export default function About() {
     </Container>
   )
 }
+
+// About.getLayout = function getLayout(page) {
+//   return <BlueFrame>{page}</BlueFrame>
+// }
